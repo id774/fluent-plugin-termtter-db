@@ -3,14 +3,17 @@ require 'fluent/config'
 require 'fluent/input'
 require 'active_record'
 
-class TermtterInput < Fluent::Input
-  Fluent::Plugin.register_input('termtter-db', self)
+module Fluent
+
+
+class TermtterInput < Input
+  Plugin.register_input('termtter-db', self)
 
   def start
-    statuses = Storage.new.get
+    statuses = Termtter::Storage.new.get
     statuses.each {|status|
-      Fluent::Engine.emit("termtter.status",
-        Fluent::Engine.now, {
+      Engine.emit("termtter.status",
+        Engine.now, {
           "uid"                     => status.uid,
           "screen_name"             => status.screen_name,
           "text"                    => status.text,
@@ -28,6 +31,10 @@ class TermtterInput < Fluent::Input
     }
   end
 end
+
+
+module Termtter
+
 
 class Status < ActiveRecord::Base
 end
@@ -94,4 +101,10 @@ class Storage
   def drop_table
     ActiveRecord::Migration.drop_table(model_class.table_name)
   end
+end
+
+
+end
+
+
 end

@@ -3,7 +3,7 @@ require 'fluent/config'
 require 'fluent/input'
 
 class TermtterInput < Fluent::Input
-  Fluent::Plugin.register_input('termtter', self)
+  Fluent::Plugin.register_input('termtter-db', self)
 
   def start
     statuses = Storage.new.get

@@ -25,7 +25,7 @@ Or install it yourself as:
 ### Fluentd config
 
     <source>
-      type termtter
+      type termtter-db
     </source>
 
 ## Contributing

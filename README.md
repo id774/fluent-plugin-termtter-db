@@ -18,7 +18,9 @@ Or install it yourself as:
 
 ## Usage
 
-See source for details.
+1. Use termtter ( https://github.com/termtter/termtter ) with ar-single plugin.
+2. Put sqlite3 database to db directory.
+3. This plugin will load the data of the sqlite3 database.
 
 ### Fluentd config
 

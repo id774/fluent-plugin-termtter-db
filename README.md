@@ -1,4 +1,4 @@
-# fluent-plugin-termtter
+# fluent-plugin-termtter-db
 
 Fluentd input/output plugin termtter.
 
@@ -6,7 +6,7 @@ Fluentd input/output plugin termtter.
 
 Add this line to your application's Gemfile:
 
-    gem 'fluent-plugin-termtter'
+    gem 'fluent-plugin-termtter-db'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install fluent-plugin-termtter
+    $ gem install fluent-plugin-termtter-db
 
 ## Usage
 

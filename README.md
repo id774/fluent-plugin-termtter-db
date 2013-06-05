@@ -1,6 +1,6 @@
 # fluent-plugin-termtter-db
 
-Fluentd input/output plugin termtter.
+Fluentd input plugin for termtter db.
 
 ## Installation
 

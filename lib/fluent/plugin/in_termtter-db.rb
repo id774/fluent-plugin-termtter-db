@@ -1,6 +1,7 @@
 require 'fluent/plugin'
 require 'fluent/config'
 require 'fluent/input'
+require 'active_record'
 
 class TermtterInput < Fluent::Input
   Fluent::Plugin.register_input('termtter-db', self)
@@ -8,14 +9,25 @@ class TermtterInput < Fluent::Input
   def start
     statuses = Storage.new.get
     statuses.each {|status|
-      Fluent::Engine.emit("debug.debug",
-        Fluent::Engine.now, {"screen_name" => status.screen_name,
-                             "text"  => status.text})
+      Fluent::Engine.emit("termtter.status",
+        Fluent::Engine.now, {
+          "uid"                     => status.uid,
+          "screen_name"             => status.screen_name,
+          "text"                    => status.text,
+          "created_at"              => status.created_at,
+          "protected"               => status.protected,
+          "in_reply_to_status_id"   => status.in_reply_to_status_id,
+          "in_reply_to_user_id"     => status.in_reply_to_user_id,
+          "in_reply_to_screen_name" => status.in_reply_to_user_id,
+          "statuses_count"          => status.statuses_count,
+          "friends_count"           => status.friends_count,
+          "followers_count"         => status.followers_count,
+          "source"                  => status.source,
+        }
+      )
     }
   end
 end
-
-require 'active_record'
 
 class Status < ActiveRecord::Base
 end

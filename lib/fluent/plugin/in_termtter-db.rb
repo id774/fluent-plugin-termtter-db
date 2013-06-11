@@ -12,7 +12,7 @@ class TermtterInput < Input
   def start
     statuses = Termtter::Storage.new.get
     statuses.each {|status|
-      Engine.emit("termtter.status",
+      Engine.emit("termtter.statuses",
         Engine.now, {
           "uid"                     => status.uid,
           "screen_name"             => status.screen_name,
@@ -42,8 +42,7 @@ end
 class Storage
   def get
     prepare_database
-    model_class
-     .where('created_at >= ?', '2013-06-01').limit(100)
+    model_class.all
   end
 
   def drop

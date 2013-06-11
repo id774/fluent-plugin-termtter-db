@@ -28,6 +28,13 @@ Or install it yourself as:
       type termtter-db
     </source>
 
+### Output example
+
+    <match termtter.statuses>
+      type file
+      path termtter.log
+    </match>
+
 ## Contributing
 
 1. Fork it

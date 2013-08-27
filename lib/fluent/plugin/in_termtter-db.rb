@@ -17,7 +17,7 @@ class TermtterInput < Input
         Engine.now, {
           "uid"                     => status.uid,
           "screen_name"             => status.screen_name,
-          "text"                    => status.text,
+          "text"                    => status.text.force_encoding("utf-8"),
           "created_at"              => status.created_at,
           "protected"               => status.protected,
           "in_reply_to_status_id"   => status.in_reply_to_status_id,
@@ -26,7 +26,7 @@ class TermtterInput < Input
           "statuses_count"          => status.statuses_count,
           "friends_count"           => status.friends_count,
           "followers_count"         => status.followers_count,
-          "source"                  => status.source,
+          "source"                  => status.source.force_encoding("utf-8"),
         }
       ) unless status.protected
 

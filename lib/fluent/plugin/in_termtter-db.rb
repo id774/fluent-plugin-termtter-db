@@ -12,6 +12,7 @@ class TermtterInput < Input
   def start
     statuses = Termtter::Storage.new.get
     statuses.each {|status|
+
       Engine.emit("termtter.statuses",
         Engine.now, {
           "uid"                     => status.uid,
@@ -27,7 +28,8 @@ class TermtterInput < Input
           "followers_count"         => status.followers_count,
           "source"                  => status.source,
         }
-      )
+      ) unless status.protected
+
     }
   end
 end

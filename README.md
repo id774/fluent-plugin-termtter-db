@@ -26,16 +26,19 @@ Or install it yourself as:
 
     <source>
       type           termtter-db
-      db_file        sqlite3.db       # The file name of sqlite3.
-      tag            twitter.statuses # JSON Tag name.
+      db_path        sqlite3.db       # The file name of sqlite3.
+      tag            twitter.statuses # The name of JSON tag.
       load_protected false            # Load protected tweets when true.
     </source>
 
 ### Output example
 
-    <match termtter.statuses>
-      type file
-      path termtter.log
+    <match twitter.statuses>
+      type mongo
+      database twitter
+      host localhost
+      port 27017
+      tag_mapped
     </match>
 
 ## Contributing

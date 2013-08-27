@@ -2,6 +2,8 @@ require 'fluent/plugin'
 require 'fluent/config'
 require 'fluent/input'
 require 'active_record'
+require 'fluent/mixin/config_placeholders'
+require 'fluent/mixin/plaintextformatter'
 
 module Fluent
 
@@ -11,10 +13,21 @@ class TermtterInput < Input
 
   config_param :db_path, :string, :default => 'sqlite3.db'
   config_param :tag, :string, :default => 'twitter.statuses'
-  config_param :load_protected, :boolean, :default => false
+  config_param :load_protected, :bool, :default => false
+
+  include Fluent::Mixin::ConfigPlaceholders
+  include Fluent::Mixin::PlainTextFormatter
+
+  def initialize
+    super
+  end
+
+  def configure(conf)
+    super
+  end
 
   def start
-    statuses = Termtter::Storage.new.get
+    statuses = Termtter::Storage.new(@db_path).get
     statuses.each {|status|
 
       Engine.emit(@tag,
@@ -46,6 +59,10 @@ class Status < ActiveRecord::Base
 end
 
 class Storage
+  def initialize(db_path)
+    @db_path = db_path
+  end
+
   def get
     prepare_database
     model_class.all

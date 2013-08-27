@@ -25,7 +25,10 @@ Or install it yourself as:
 ### Fluentd config
 
     <source>
-      type termtter-db
+      type           termtter-db
+      db_file        sqlite3.db       # The file name of sqlite3.
+      tag            twitter.statuses # JSON Tag name.
+      load_protected false            # Load protected tweets when true.
     </source>
 
 ### Output example

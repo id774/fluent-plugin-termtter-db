@@ -9,11 +9,15 @@ module Fluent
 class TermtterInput < Input
   Plugin.register_input('termtter-db', self)
 
+  config_param :db_path, :string, :default => 'sqlite3.db'
+  config_param :tag, :string, :default => 'twitter.statuses'
+  config_param :load_protected, :boolean, :default => false
+
   def start
     statuses = Termtter::Storage.new.get
     statuses.each {|status|
 
-      Engine.emit("termtter.statuses",
+      Engine.emit(@tag,
         Engine.now, {
           "uid"                     => status.uid,
           "screen_name"             => status.screen_name,
@@ -28,7 +32,7 @@ class TermtterInput < Input
           "followers_count"         => status.followers_count,
           "source"                  => status.source.force_encoding("utf-8"),
         }
-      ) unless status.protected
+      ) if status.protected == false or @load_protected == true
 
     }
   end
@@ -54,7 +58,7 @@ class Storage
 
   private
   def prepare_database
-    db = File.join(db_dir, 'sqlite3.db')
+    db = File.join(File.expand_path(@db_path))
     ActiveRecord::Base.establish_connection(
       :adapter  => "sqlite3",
       :database => db
@@ -64,10 +68,6 @@ class Storage
 
   def model_class
     Status
-  end
-
-  def db_dir
-    File.join(File.dirname(__FILE__), '..', '..', '..', 'db')
   end
 
   def column_definition

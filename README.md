@@ -34,11 +34,12 @@ Or install it yourself as:
 ### Output example
 
     <match twitter.statuses>
-      type mongo
-      database twitter
+      type webhdfs
       host localhost
-      port 27017
-      tag_mapped
+      port 50070
+      path /user/hadoop/twitter/twitter.log
+      flush_interval 1m
+      username fluent
     </match>
 
 ## Contributing

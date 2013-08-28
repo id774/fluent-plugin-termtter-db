@@ -21,6 +21,7 @@ class TermtterInput < Input
         Engine.now, {
           "uid"                     => status.uid,
           "screen_name"             => status.screen_name,
+          "id_str"                  => status.id_str,
           "text"                    => status.text.force_encoding("utf-8"),
           "created_at"              => status.created_at,
           "protected"               => status.protected,
@@ -78,6 +79,7 @@ class Storage
     {
       :uid => :integer,
       :screen_name => :string,
+      :id_str => :string,
       :text => :string,
       :created_at => :datetime,
       :protected => :boolean,

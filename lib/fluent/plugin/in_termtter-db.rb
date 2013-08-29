@@ -17,11 +17,14 @@ class TermtterInput < Input
     statuses = Termtter::Storage.new(@db_path).get
     statuses.each {|status|
 
+      id_str = ""
+      id_str = status.id_str unless status.id_str.nil?
+
       Engine.emit(@tag,
         Engine.now, {
           "uid"                     => status.uid,
           "screen_name"             => status.screen_name,
-          "id_str"                  => status.id_str,
+          "id_str"                  => id_str,
           "text"                    => status.text.force_encoding("utf-8"),
           "created_at"              => status.created_at,
           "protected"               => status.protected,

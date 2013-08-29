@@ -17,8 +17,7 @@ class TermtterInput < Input
     statuses = Termtter::Storage.new(@db_path).get
     statuses.each {|status|
 
-      id_str = ""
-      id_str = status.id_str unless status.id_str.nil?
+      id_str = status.id_str.nil? ? "" : status.id_str
 
       Engine.emit(@tag,
         Engine.now, {

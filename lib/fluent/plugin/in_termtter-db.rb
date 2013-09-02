@@ -29,7 +29,7 @@ class TermtterInput < Input
           "protected"               => status.protected,
           "in_reply_to_status_id"   => status.in_reply_to_status_id,
           "in_reply_to_user_id"     => status.in_reply_to_user_id,
-          "in_reply_to_screen_name" => status.in_reply_to_user_id,
+          "in_reply_to_screen_name" => status.in_reply_to_screen_name,
           "statuses_count"          => status.statuses_count,
           "friends_count"           => status.friends_count,
           "followers_count"         => status.followers_count,
